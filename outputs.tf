@@ -7,7 +7,7 @@ output "public_subnet" {
 }
 
 output "public_ip" {
-    value = module.first_ec2_module.public_ip
+  value = module.first_ec2_module.public_ip
 }
 
 # output "vpc_id_2" {

@@ -5,7 +5,7 @@ terraform {
     region         = "eu-west-1"
     dynamodb_table = "terraform-state-locking"
     encrypt        = true
-    profile = "jabreel-role"
+    profile        = "jabreel-role"
   }
 }
 
