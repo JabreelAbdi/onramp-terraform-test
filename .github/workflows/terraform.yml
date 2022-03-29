@@ -21,6 +21,14 @@ jobs:
     # Install the latest version of Terraform CLI
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
+
+    # This section is creating a .aws folder and credentials file using multiple linux commands
+    - name: creating credentials folder in vm
+      run: | 
+        mkdir ~/.aws/
+        echo "[jabreel-role]" > ~/.aws/credentials 
+        echo "aws_access_key_id=${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials
+        echo "aws_access_key_id=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials
         
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
@@ -28,7 +36,7 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      run: terraform init -backend-config="access_key= ${{ secrets.AWS_ACCESS_KEY_ID }}" -backend-config="secret_key= ${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+      run: terraform init -backend-config="access_key=${{ secrets.AWS_ACCESS_KEY_ID }}" -backend-config="secret_key=${{ secrets.AWS_SECRET_ACCESS_KEY }}"
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
